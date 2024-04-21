@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.Mysql.mapper.UserMapper">
+     <resultMap id="userMap" type="org.example.Mysql.Entity.User">
+         <id property="id" column="id" jdbcType="VARCHAR"/>
+         <result column="username" jdbcType="VARCHAR" property="name" />
+         <result column="password" jdbcType="VARCHAR" property="password" />
+     </resultMap>
+<!--   //resultType对应模版数据类型-->
+<!--    //resultMap对应自定义类型-->
+   <select id="readUsers" resultMap="userMap">
+       select *  from user;
+   </select>
+
+     <insert id="addUser" parameterType="org.example.Mysql.Entity.User" >
+          insert into user values (#{name},#{password},#{id});
+   </insert>
+
+    <select id="login" resultType="STRING" parameterType="Map">
+        select id from user where username = #{name} and password = #{password}
+    </select>
+</mapper>
+
